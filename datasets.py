@@ -73,7 +73,7 @@ class Uniform15KPC(Dataset):
                 except:
                     continue
 
-                assert point_cloud.shape[0] == 15000
+                assert point_cloud.shape[0] == 1024
                 self.all_points.append(point_cloud[np.newaxis, ...])
                 self.cate_idx_lst.append(cate_idx)
                 self.all_cate_mids.append((subd, mid))
@@ -107,8 +107,8 @@ class Uniform15KPC(Dataset):
                 self.all_points_std = self.all_points.reshape(-1).std(axis=0).reshape(1, 1, 1)
 
         self.all_points = (self.all_points - self.all_points_mean) / self.all_points_std
-        self.train_points = self.all_points[:, :10000]
-        self.test_points = self.all_points[:, 10000:]
+        self.train_points = self.all_points[:, :1024]
+        self.test_points = self.all_points[:, 0:]
 
         self.tr_sample_size = min(10000, tr_sample_size)
         self.te_sample_size = min(5000, te_sample_size)
@@ -130,8 +130,8 @@ class Uniform15KPC(Dataset):
         self.all_points_mean = mean
         self.all_points_std = std
         self.all_points = (self.all_points - self.all_points_mean) / self.all_points_std
-        self.train_points = self.all_points[:, :10000]
-        self.test_points = self.all_points[:, 10000:]
+        self.train_points = self.all_points[:, :1024]
+        self.test_points = self.all_points[:, 0:]
 
     def __len__(self):
         return len(self.train_points)
