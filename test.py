@@ -149,17 +149,16 @@ def main(args):
     model.multi_gpu_wrapper(_transform_)
 
     print("Resume Path:%s" % args.resume_checkpoint)
-    checkpoint = torch.load(args.resume_checkpoint)
-    model.load_state_dict(checkpoint)
-    model.eval()
-
-    with torch.no_grad():
-        if args.evaluate_recon:
-            # Evaluate reconstruction
-            evaluate_recon(model, args)
-        else:
-            # Evaluate generation
-            evaluate_gen(model, args)
+    #checkpoint = torch.load(args.resume_checkpoint)
+    #model.load_state_dict(checkpoint)
+    #model.eval()
+    state_dict=torch.load(args.resume_checkpoint)
+    for k, v in state_dict.items():
+        if k=="model":
+            true_model=v
+            break
+    model.load_state_dict(true_model)
+    model.eval() 
 
 
 if __name__ == '__main__':
