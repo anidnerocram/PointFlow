@@ -158,7 +158,15 @@ def main(args):
             true_model=v
             break
     model.load_state_dict(true_model)
-    model.eval() 
+    model.eval()
+    with torch.no_grad():
+        if args.evaluate_recon:
+            # Evaluate reconstruction
+            evaluate_recon(model, args)
+        else:
+            # Evaluate generation
+            evaluate_gen(model, args)
+
 
 
 if __name__ == '__main__':
