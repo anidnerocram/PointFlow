@@ -26,13 +26,13 @@ python train.py \
     --batch_size ${batch_size} \
     --zdim ${zdim} \
     --epochs ${epochs} \
-    --save_freq 1 \
+    --save_freq 10 \
     --viz_freq 1 \
     --log_freq 1 \
     --val_freq 10 \
     --use_latent_flow \
     --tr_max_sample_points 1024 \
-    --te_max_sample_points 
+    --te_max_sample_points 1024
 
 echo "Done"
 exit 0
